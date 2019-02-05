@@ -21,12 +21,17 @@ class Transaction {
     this.account = account;       // object (instance of Account class) passed in -->  myAccount = { username: 'meow patrol', transactions: [] };
   }
   commit(){                       // called by t1.commit()
+    if (this.value + this.account.balance < 0){
+      console.log('Sorry. Withdrawal exceeds funds. 💸');
+      return false;
+    }
     this.time = new Date();
     this.account.addTransaction(this);
+    console.log(`Funds deposited. Current balance is $${this.account.balance}.`);
   }
 }
 
-class Withdrawal extends Transaction { // takes 2 values: amount, account
+class Withdrawal extends Transaction {
   get value() {
     return -this.amount;
   }
@@ -44,6 +49,8 @@ const myAccount = new Account('meow-patrol');
 const t1 = new Withdrawal(10, myAccount);
 t1.commit();
 
+const t2 = new Deposit(100, myAccount);
+t2.commit();
 
-console.log(myAccount.balance);
+// console.log(myAccount.balance);
 
