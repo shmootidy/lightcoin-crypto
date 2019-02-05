@@ -32,8 +32,18 @@ class Deposit extends Transaction {
 // DRIVER CODE BELOW
 const myAccount = new Account('meow-patrol');
 
-const t1 = new Withdrawal('10', myAccount);
+console.log('Before transactions:', myAccount.balance);
+
+const t1 = new Withdrawal(10, myAccount);
 t1.commit();
-console.log(t1);
+// console.log(t1);
+console.log('After withdrawal:', myAccount.balance);
+
+const t2 = new Deposit(250, myAccount);
+t2.commit();
+// console.log(t2);
+console.log('After deposit:', myAccount.balance);
+
+console.log();
 
 
