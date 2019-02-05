@@ -27,7 +27,7 @@ class Transaction {
     }
     this.time = new Date();
     this.account.addTransaction(this);
-    console.log(`Funds deposited. Current balance is $${this.account.balance}.`);
+    console.log(`Transaction completed. Current balance is $${this.account.balance}.`);
   }
 }
 
@@ -47,10 +47,10 @@ class Deposit extends Transaction {
 const myAccount = new Account('meow-patrol');
 
 const t1 = new Withdrawal(10, myAccount);
-t1.commit();
 
 const t2 = new Deposit(100, myAccount);
 t2.commit();
+t1.commit();
 
 // console.log(myAccount.balance);
 
