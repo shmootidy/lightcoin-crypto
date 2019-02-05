@@ -1,23 +1,34 @@
 class Account {
   constructor(username) {
     this.username = username;
-    this.balance = 0;
+    this.transactions = [];
+  }
+  get balance() {
+    let balance = 0;
+    this.transactions.forEach(transaction => {
+      balance += transaction.value;
+    })
+    return balance;
+  }
+  addTransaction(transaction) {
+    this.transactions.push(transaction);
   }
 }
 
 class Transaction {
   constructor(amount, account) {
-    this.amount = amount;        // amount passed in for transaction
-    this.account = account;       // object (instance of Account class) passed in -->  myAccount = { username: 'meow patrol', balance: 0 };
+    this.amount = amount;         // amount passed in for transaction
+    this.account = account;       // object (instance of Account class) passed in -->  myAccount = { username: 'meow patrol', transactions: [] };
   }
-  commit(){
-    this.account.balance += this.value;
+  commit(){                       // called by t1.commit()
+    this.time = new Date();
+    this.account.addTransaction(this);
   }
 }
 
 class Withdrawal extends Transaction { // takes 2 values: amount, account
   get value() {
-    return -this.amount;        //
+    return -this.amount;
   }
 }
 
@@ -27,23 +38,12 @@ class Deposit extends Transaction {
   }
 }
 
-
-
 // DRIVER CODE BELOW
 const myAccount = new Account('meow-patrol');
 
-console.log('Before transactions:', myAccount.balance);
-
 const t1 = new Withdrawal(10, myAccount);
 t1.commit();
-// console.log(t1);
-console.log('After withdrawal:', myAccount.balance);
 
-const t2 = new Deposit(250, myAccount);
-t2.commit();
-// console.log(t2);
-console.log('After deposit:', myAccount.balance);
 
-console.log();
-
+console.log(myAccount.balance);
 
