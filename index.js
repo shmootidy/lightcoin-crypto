@@ -20,14 +20,18 @@ class Transaction {
     this.amount = amount;         // amount passed in for transaction
     this.account = account;       // object (instance of Account class) passed in -->  myAccount = { username: 'meow patrol', transactions: [] };
   }
-  commit(){                       // called by t1.commit()
+  isAllowed(){
     if (this.value + this.account.balance < 0){
-      console.log('Sorry. Withdrawal exceeds funds. 💸');
       return false;
     }
-    this.time = new Date();
-    this.account.addTransaction(this);
-    console.log(`Transaction completed. Current balance is $${this.account.balance}.`);
+    return true;
+  }
+  commit(){                       // called by t1.commit()
+    if (this.isAllowed()) {
+      this.time = new Date();
+      this.account.addTransaction(this);
+      console.log(`Transaction completed. Current balance is $${this.account.balance}.`);
+    }
   }
 }
 
@@ -42,6 +46,7 @@ class Deposit extends Transaction {
     return this.amount;
   }
 }
+
 
 // DRIVER CODE BELOW
 const myAccount = new Account('meow-patrol');
