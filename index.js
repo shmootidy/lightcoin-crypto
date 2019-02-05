@@ -22,6 +22,7 @@ class Transaction {
   }
   isAllowed(){
     if (this.value + this.account.balance < 0){
+      console.log('Sorry. Insufficient funds. 💸');
       return false;
     }
     return true;
@@ -52,10 +53,10 @@ class Deposit extends Transaction {
 const myAccount = new Account('meow-patrol');
 
 const t1 = new Withdrawal(10, myAccount);
+t1.commit();
 
 const t2 = new Deposit(100, myAccount);
 t2.commit();
-t1.commit();
 
 // console.log(myAccount.balance);
 
