@@ -1,4 +1,9 @@
-let balance = 500.00;
+class Account {
+  constructor(username) {
+    this.username = username;
+    this.balance = 0;
+  }
+}
 
 class Withdrawal {
 
