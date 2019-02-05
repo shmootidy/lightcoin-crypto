@@ -7,10 +7,12 @@ class Account {
 
 class Transaction {
   constructor(amount, account) {
-    this.ammount = amount;        // amount passed in for transaction
+    this.amount = amount;        // amount passed in for transaction
     this.account = account;       // object (instance of Account class) passed in -->  myAccount = { username: 'meow patrol', balance: 0 };
   }
-
+  commit(){
+    this.account.balance += this.value;
+  }
 }
 
 class Withdrawal extends Transaction { // takes 2 values: amount, account
@@ -31,6 +33,7 @@ class Deposit extends Transaction {
 const myAccount = new Account('meow-patrol');
 
 const t1 = new Withdrawal('10', myAccount);
+t1.commit();
 console.log(t1);
 
 
