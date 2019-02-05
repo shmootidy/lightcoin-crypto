@@ -58,5 +58,4 @@ t1.commit();
 const t2 = new Deposit(100, myAccount);
 t2.commit();
 
-// console.log(myAccount.balance);
 
